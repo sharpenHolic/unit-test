@@ -13,7 +13,7 @@ TEST(BindingTest, Move1)
 {
     MyStruct ms = {42, "jim"};
     auto&& [n, s] = std::move(ms);
-    std::cout << "ms.s: " << ms.s << "\n";  // ms.s has value, because v point to, not move
+    std::cout << "ms.s: " << ms.s << "\n";  // ms.s has value, because s point to, not move
     // after move
     std::string s1 = std::move(s);
     std::cout << "ms.s: " << ms.s << '\n';

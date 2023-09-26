@@ -25,11 +25,14 @@ TEST(Template, Partial)
 }
 };  // namespace TPartialTest
 
+
 namespace TLocalClassTest {
+
 class Interface {
    public:
     virtual void Work() = 0;
 };
+
 template <class T, class P>
 std::shared_ptr<Interface> MakeAdapter(const T &obj, const P &arg)
 {
@@ -53,7 +56,6 @@ class WorkerIndian {
 class WorkerChina {
    public:
     void Call(const std::string &s) { std::cout << "chinese work on s: " << s << std::endl; }
-
     void Smoke() { std::cout << "do some smoke: " << std::endl; }
 };
 
@@ -63,13 +65,12 @@ void WorkOnMyWay(std::vector<std::shared_ptr<Interface>> &workers)
         w->Work();
     }
 }
+
 TEST(Template, ClassLocal)
 {
     std::vector<std::shared_ptr<Interface>> workFactory;
-
     workFactory.emplace_back(MakeAdapter(WorkerIndian(), 007));
     workFactory.emplace_back(MakeAdapter(WorkerChina(), std::string("996")));
-
     WorkOnMyWay(workFactory);
 }
 };  // namespace TLocalClassTest
