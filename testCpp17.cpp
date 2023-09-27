@@ -41,11 +41,11 @@ TEST(BindingTest, Move2)
 // All non-static data members must be defined in the same class (
 // i.e. that is, all of these members either come directly from
 // the final class or all come from the same parent class)
-
 TEST(BindingTest, MapInsert)
 {
     // use this way to insert a value to map
     std::map<std::string, int> coll;
+    // add a declaration in a if ()
     if (auto [pos, ok] = coll.insert({"new", 42}); ok) {
         std::cout << "insert success: " << pos->first << ", " << pos->second << std::endl;
     }
