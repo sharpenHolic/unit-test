@@ -68,6 +68,7 @@ TEST(MemoryCostTest, Common)
     std::cout << boost::format("unsigned long: %1% bytes\n") % sizeof(unsigned long);
     std::cout << boost::format("float: %1% bytes\n") % sizeof(float);
     std::cout << boost::format("double: %1% bytes\n") % sizeof(double);
+    std::cout << boost::format("uint8_t: %1% bytes\n") % sizeof(uint8_t);
 }
 
 TEST(MemoryCostTest, STL)
@@ -110,15 +111,16 @@ TEST(MemoryCostTest, Class2)
        public:
         virtual void foo() = 0;
         virtual void boo() = 0;
-    }; // 8 bytes
+    };  // 8 bytes
 
     class Derived1 : public Base {
        public:
         virtual void foo() override {}
         virtual void boo() override {}
-    private:
+
+       private:
         short _m0{};
-    }; // 16 bytes
+    };  // 16 bytes
 
     class Derived2 : public Base {
        public:
@@ -128,10 +130,19 @@ TEST(MemoryCostTest, Class2)
        private:
         int _m0{0};
         int _m1{0};
-    }; // 16 bytes
+    };  // 16 bytes
 
     std::cout << boost::format("class Base: %1% bytes\n") % sizeof(Base);
     std::cout << boost::format("class Derived1: %1% bytes\n") % sizeof(Derived1);
     std::cout << boost::format("class Derived2: %1% bytes\n") % sizeof(Derived2);
+}
+
+TEST(MemoryCostTest, Class3)
+{
+    class A {
+        uint8_t b = 0;
+    };
+
+    std::cout << boost::format("class A: %1% bytes\n") % sizeof(A);
 }
 };  // namespace STLTest
