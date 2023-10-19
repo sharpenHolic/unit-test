@@ -12,5 +12,7 @@ enable_testing()
 add_executable(unit main.cpp testUnit.cpp testTemplate.cpp testCpp17.cpp
         testMove.cpp
         testDP/testFactory.cpp
+        testRecurtion.cpp
+        testAlgoruthm/testSort.cpp
 )
 target_link_libraries(unit gtest gtest_main)
