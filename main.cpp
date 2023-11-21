@@ -1,4 +1,3 @@
-// in my_gtest_demo_1.cc
 #include <gtest/gtest.h>
 
 //class TestUnit : public testing::Environment {

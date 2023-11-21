@@ -25,7 +25,6 @@ TEST(Template, Partial)
 }
 };  // namespace TPartialTest
 
-
 namespace TLocalClassTest {
 
 class Interface {
@@ -175,3 +174,102 @@ TEST(Template, StaticDispatch)
     int receiver2 = s2->GetR();
 }
 };  // namespace TStaticDispatchTest
+
+namespace TStaticDispatchTest2 {
+enum WAYS { TYPE1, TYPE2, TYPE3 };
+
+template <typename T>
+struct Type2Type {
+    typedef T OriginalType;
+};
+
+class Pattern {
+   public:
+    Pattern() = default;
+    virtual void Process() {}
+    virtual void FPrint() { std::cout << "d = " << d << ", r = " << r << std::endl; }
+
+   public:
+    virtual int &GetD() final { return d; }
+    virtual int &GetR() final { return r; }
+
+   private:
+    int d{0};
+    int r{0};
+};
+
+// template <int type>
+class FindPattern {
+   public:
+    void process(std::shared_ptr<Pattern> obj) { obj->Process(); }
+};
+
+class FindPattern1 : public Pattern {
+   public:
+    FindPattern1() = default;
+    void FPrint() override
+    {
+        Pattern::FPrint();
+        std::cout << "this is TYPE1" << std::endl;
+    }
+    void Process() override
+    {
+        GetD() = 11;
+        GetR() = 11;
+    }
+};
+
+class FindPattern2 : public Pattern {
+   public:
+    FindPattern2() = default;
+    void FPrint() override
+    {
+        Pattern::FPrint();
+        std::cout << "this is TYPE2" << std::endl;
+    }
+    void Process() override
+    {
+        GetD() = 22;
+        GetR() = 22;
+    }
+};
+
+class FindPattern3 : public Pattern {
+   public:
+    FindPattern3() = default;
+    void FPrint() override
+    {
+        Pattern::FPrint();
+        std::cout << "this is TYPE3" << std::endl;
+    }
+    void Process() override
+    {
+        GetD() = 33;
+        GetR() = 33;
+    }
+};
+
+template <typename T>
+class findBuilder {
+   private:
+    std::shared_ptr<Pattern> makeFinder(Type2Type<T>) { return std::make_shared<T>(); }
+
+   public:
+    std::shared_ptr<Pattern> makeFinder() { return makeFinder(Type2Type<T>()); }
+};
+
+TEST(Template, StaticDispatch)
+{
+    auto s1 = findBuilder<FindPattern1>().makeFinder();
+    FindPattern().process(s1);
+    s1->FPrint();
+    int driver1 = s1->GetD();
+    int receiver1 = s1->GetR();
+
+    auto s2 = findBuilder<FindPattern2>().makeFinder();
+    FindPattern().process(s2);
+    s2->FPrint();
+    int driver2 = s2->GetD();
+    int receiver2 = s2->GetR();
+}
+};  // namespace TStaticDispatchTest2

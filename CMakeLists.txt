@@ -9,10 +9,13 @@ include_directories(${GTEST_INCLUDE_DIRS})
 add_subdirectory(include)
 
 enable_testing()
-add_executable(unit main.cpp testUnit.cpp testTemplate.cpp testCpp17.cpp
+add_executable(unit testUnit.cpp testTemplate.cpp testCpp17.cpp
         testMove.cpp
         testDP/testFactory.cpp
         testRecurtion.cpp
         testAlgoruthm/testSort.cpp
+        main.cpp
+        testHash.cpp
+        testClassDrive.cpp
 )
 target_link_libraries(unit gtest gtest_main)
