@@ -145,4 +145,14 @@ TEST(MemoryCostTest, Class3)
 
     std::cout << boost::format("class A: %1% bytes\n") % sizeof(A);
 }
+
+
+TEST(Multimap, test1)
+{
+    std::unordered_multimap<int, std::string> mm;
+    mm.insert({1, "hello"});
+    mm.insert({1, "hello1"});
+    std::cout << mm.count(1) << std::endl;
+}
+
 };  // namespace STLTest
