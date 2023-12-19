@@ -31,4 +31,22 @@ TEST(MoveTest, test1)
     //    Widget w4{w3};
 }
 
+void func(std::vector<int>& vvv)
+{
+    std::vector<int> res = std::move(vvv);
+    for (auto i : res) {
+        std::cout << i;
+    }
+}
+
+TEST(MoveTest, testVector)
+{
+    std::vector<int> vii{1, 2, 3, 4, 5, 6, 7};
+
+    func(vii);
+    func(vii);
+    func(vii);
+    //    Widget w4{w3};
+}
+
 };  // namespace MoveTest

@@ -141,11 +141,11 @@ TEST(MemoryCostTest, Class3)
 {
     class A {
         uint8_t b = 0;
+        uint8_t b1 = 0;
     };
 
     std::cout << boost::format("class A: %1% bytes\n") % sizeof(A);
 }
-
 
 TEST(Multimap, test1)
 {
@@ -153,6 +153,12 @@ TEST(Multimap, test1)
     mm.insert({1, "hello"});
     mm.insert({1, "hello1"});
     std::cout << mm.count(1) << std::endl;
+}
+
+TEST(STRINGTOINT, test1) {
+    std::string ss = "a0091a11";
+    int ii = atoi(ss.c_str());
+    std::cout << "ii: " << ii << std::endl;
 }
 
 };  // namespace STLTest

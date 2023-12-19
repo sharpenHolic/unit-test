@@ -17,5 +17,6 @@ add_executable(unit testUnit.cpp testTemplate.cpp testCpp17.cpp
         main.cpp
         testHash.cpp
         testClassDrive.cpp
+        testMemGuard.cpp
 )
 target_link_libraries(unit gtest gtest_main)
