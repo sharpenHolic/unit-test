@@ -151,8 +151,10 @@ TEST(Multimap, test1)
 {
     std::unordered_multimap<int, std::string> mm;
     mm.insert({1, "hello"});
-    mm.insert({1, "hello1"});
-    std::cout << mm.count(1) << std::endl;
+    mm.insert({1, "hello"});
+    for (auto it : mm) {
+        std::cout << it.second << std::endl;
+    }
 }
 
 TEST(STRINGTOINT, test1) {
