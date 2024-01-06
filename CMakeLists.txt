@@ -19,7 +19,9 @@ add_executable(unit testUnit.cpp testTemplate.cpp testCpp17.cpp
         testClassDrive.cpp
         testMemGuard.cpp
         testTemplate2.cpp
-        testClockCrossing.cpp
+        testWork/testClockCrossing.cpp
         testCpp20.cpp
+        testWork/testFalsePath.cpp
+        testUnorderdMap.cpp
 )
 target_link_libraries(unit gtest gtest_main)

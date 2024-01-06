@@ -37,3 +37,4 @@ TEST(HASH, CombineHash)
 
     std::cout << myMap.size() << std::endl;
 }
+

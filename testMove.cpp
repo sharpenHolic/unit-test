@@ -31,7 +31,7 @@ TEST(MoveTest, test1)
     //    Widget w4{w3};
 }
 
-void func(std::vector<int>& vvv)
+void func(std::vector<int>&& vvv)
 {
     std::vector<int> res = std::move(vvv);
     for (auto i : res) {
@@ -43,9 +43,30 @@ TEST(MoveTest, testVector)
 {
     std::vector<int> vii{1, 2, 3, 4, 5, 6, 7};
 
-    func(vii);
-    func(vii);
-    func(vii);
+    func(std::move(vii));
+    func(std::vector<int>({1, 2, 3, 4, 5, 6, 7}));
+    func(std::move(vii));
+    //    Widget w4{w3};
+}
+
+void func2(std::vector<int>&& vvv)
+{
+    std::unordered_map<int, std::vector<int>> mm;
+    mm.insert({1, vvv});
+    for (auto i : mm) {
+        for (auto ii : i.second) {
+            std::cout << ii << std::endl;
+        }
+    }
+}
+
+TEST(MoveTest, testVector2)
+{
+    std::vector<int> vii{1, 2, 3, 4, 5, 6, 7};
+
+    func2(std::move(vii));
+    func2(std::vector<int>({1, 2, 3, 4, 5, 6, 7}));
+
     //    Widget w4{w3};
 }
 

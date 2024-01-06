@@ -2,6 +2,10 @@
 // Created by gqxiong on 2024/1/4.
 //
 
+// 每个clock有自己的名字和唯一的id，不同clock可以有相同的id。具备相同id的clock之间没有crossing
+// 不同的接口带有很多clock，需要一个接口判断是否有crossing
+
+
 #include "gtest/gtest.h"
 
 class Clock {
