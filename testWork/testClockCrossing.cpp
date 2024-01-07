@@ -3,7 +3,7 @@
 //
 
 // 每个clock有自己的名字和唯一的id，不同clock可以有相同的id。具备相同id的clock之间没有crossing
-// 不同的接口带有很多clock，需要一个接口判断是否有crossing
+// 不同的接口带有很多clock，需要一个函数判断接口之间是否有crossing
 
 
 #include "gtest/gtest.h"

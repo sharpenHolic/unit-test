@@ -8,6 +8,7 @@ TEST(Erase_if, test1)
 {
     std::vector<int> v1{1, 2, 3, 4, 5};
 
+    // 删除容器中指定的元素
     for (auto i : {1, 2, 3}) {
         erase_if(v1, [&](const auto& num) {
             return i == num;

@@ -20,8 +20,9 @@ add_executable(unit testUnit.cpp testTemplate.cpp testCpp17.cpp
         testMemGuard.cpp
         testTemplate2.cpp
         testWork/testClockCrossing.cpp
-        testCpp20.cpp
+        testEraseIf.cpp
         testWork/testFalsePath.cpp
         testUnorderdMap.cpp
+        testStdCopy.cpp
 )
 target_link_libraries(unit gtest gtest_main)
