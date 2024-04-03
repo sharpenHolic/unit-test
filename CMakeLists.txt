@@ -11,18 +11,22 @@ add_subdirectory(include)
 enable_testing()
 add_executable(unit testUnit.cpp testTemplate.cpp testCpp17.cpp
         testMove.cpp
-        testDP/testFactory.cpp
+        testDesignPattern/testSimpleFactory.cpp
         testRecurtion.cpp
         testAlgoruthm/testSort.cpp
         main.cpp
         testHash.cpp
         testClassDrive.cpp
-        testMemGuard.cpp
+        testWork/testMemGuard.cpp
         testTemplate2.cpp
         testWork/testClockCrossing.cpp
         testEraseIf.cpp
         testWork/testFalsePath.cpp
         testUnorderdMap.cpp
         testStdCopy.cpp
+        testEqual.cpp
+        testSetMerge.cpp
+        testString.cpp
+        testExplicit.cpp
 )
 target_link_libraries(unit gtest gtest_main)

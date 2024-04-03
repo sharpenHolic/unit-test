@@ -9,7 +9,7 @@ class utScopeGuard {
     bool _active;
 
 public:
-    utScopeGuard(Fun f) : _f(std::move(f)), _active(true) {}
+    explicit utScopeGuard(Fun f) : _f(std::move(f)), _active(true) {}
 
     ~utScopeGuard()
     {
@@ -23,7 +23,7 @@ public:
     utScopeGuard(const utScopeGuard&) = delete;
     utScopeGuard& operator=(const utScopeGuard&) = delete;
 
-    utScopeGuard(utScopeGuard&& rhs) : _f(std::move(rhs._f)), _active(rhs._active) {}
+    utScopeGuard(utScopeGuard&& rhs)  noexcept : _f(std::move(rhs._f)), _active(rhs._active) {}
 };
 
 // Type deduction

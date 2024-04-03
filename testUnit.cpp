@@ -151,13 +151,43 @@ TEST(Multimap, test1)
 {
     std::unordered_multimap<int, std::string> mm;
     mm.insert({1, "hello"});
-    mm.insert({1, "hello"});
+    mm.insert({1, "hello2"});
     for (auto it : mm) {
         std::cout << it.second << std::endl;
     }
 }
 
-TEST(STRINGTOINT, test1) {
+TEST(MultiMap, test2)
+{
+    std::unordered_multimap<int, std::string> myMap = {
+            {1, "Apple"},
+            {2, "Banana"},
+            {1, "Apple2"},
+            {4, "Orange"},
+            {1, "Apple3"}
+    };
+
+    int key = 1;
+    std::string valueToDelete = "Apple3";
+
+    auto range = myMap.equal_range(key);
+    for (auto it = range.first; it != range.second;) {
+        if (it->second == valueToDelete) {
+            it = myMap.erase(it);
+//            break; // 可选，如果只想删除第一个匹配的值
+        } else {
+            ++it;
+        }
+    }
+
+    // 打印剩余的键值对
+    for (const auto& pair : myMap) {
+        std::cout << pair.first << ": " << pair.second << std::endl;
+    }
+}
+
+TEST(STRINGTOINT, test1)
+{
     std::string ss = "a0091a11";
     int ii = atoi(ss.c_str());
     std::cout << "ii: " << ii << std::endl;

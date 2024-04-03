@@ -16,7 +16,7 @@ class Clock {
         _id = id;
     };
 
-    std::string _name{""};
+    std::string _name;
     int _id{-1};
 };
 

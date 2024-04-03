@@ -70,4 +70,41 @@ TEST(MoveTest, testVector2)
     //    Widget w4{w3};
 }
 
+class myTest {
+   public:
+    myTest() { std::cout << "construct" << std::endl; }
+    ~myTest() { std::cout << "de construct" << std::endl; }
+    myTest(const myTest& org)
+    {
+        _m = org._m;
+        std::cout << "copy construct" << std::endl;
+    }
+    myTest(myTest&& org) noexcept
+    {
+        _m = org._m;
+        std::cout << "move construct" << std::endl;
+    }
+
+   public:
+    void SetVal(int i) { _m = i; }
+    void PrintVal() { std::cout << _m << std::endl; }
+
+   private:
+    int _m{-1};
+};
+void funcTestVector3(std::vector<myTest>& v, myTest&& i) { v.emplace_back(std::forward<myTest>(i)); }
+TEST(MoveTest, testVector3)
+{
+    std::vector<myTest> myV{};
+    {
+        myTest a{};
+        a.SetVal(100);
+        funcTestVector3(myV, std::move(a));
+    }
+
+//    for (auto& m : myV) {
+//        m.PrintVal();
+//    }
+}
+
 };  // namespace MoveTest
