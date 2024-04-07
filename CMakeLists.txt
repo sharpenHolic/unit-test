@@ -29,5 +29,6 @@ add_executable(unit testUnit.cpp testTemplate.cpp testCpp17.cpp
         testString.cpp
         testExplicit.cpp
         testCase.cpp
+        testDesignPattern/testFactory.cpp
 )
 target_link_libraries(unit gtest gtest_main)

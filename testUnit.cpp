@@ -115,8 +115,8 @@ TEST(MemoryCostTest, Class2)
 
     class Derived1 : public Base {
        public:
-        virtual void foo() override {}
-        virtual void boo() override {}
+        void foo() override {}
+        void boo() override {}
 
        private:
         short _m0{};
@@ -124,8 +124,8 @@ TEST(MemoryCostTest, Class2)
 
     class Derived2 : public Base {
        public:
-        void foo() override final {}
-        void boo() override final {}
+        void foo() final {}
+        void boo() final {}
 
        private:
         int _m0{0};
@@ -152,7 +152,7 @@ TEST(Multimap, test1)
     std::unordered_multimap<int, std::string> mm;
     mm.insert({1, "hello"});
     mm.insert({1, "hello2"});
-    for (auto it : mm) {
+    for (const auto& it : mm) {
         std::cout << it.second << std::endl;
     }
 }

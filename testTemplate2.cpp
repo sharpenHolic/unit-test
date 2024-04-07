@@ -6,7 +6,7 @@
 template <typename T>
 void myFunc(std::vector<T> funcs)
 {
-    for (auto f : funcs) {
+    for (const auto& f : funcs) {
         f();
     }
 }

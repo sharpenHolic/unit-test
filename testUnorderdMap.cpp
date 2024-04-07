@@ -16,7 +16,7 @@ TEST(UnoderedMap, remove)
     auto find = um.equal_range(2);
     erase_if(um,[&](auto p){ return p.first == 1;});
 
-    for (auto item : um) {
+    for (const auto &item : um) {
         std::cout << item.second << std::endl;
     }
 }

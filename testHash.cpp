@@ -9,7 +9,7 @@ seed ^= std::hash<T>()(val) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 }
 template <typename... Types>
 std::size_t combinedHashValue(const Types&... args) {
-    std::size_t seed = 0;            // 初 始 化seed
+    std::size_t seed = 22331;            // 初 始 化seed
     (..., hashCombine(seed, args));  // 链 式 调 用hashCombine()
 
     std::cout << "seed: " << seed << std::endl;

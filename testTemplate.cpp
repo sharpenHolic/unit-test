@@ -3,6 +3,8 @@
 //
 #include <gtest/gtest.h>
 
+#include <utility>
+
 namespace TPartialTest {
 // partial template
 template <class T, class U>
@@ -37,8 +39,8 @@ std::shared_ptr<Interface> MakeAdapter(const T &obj, const P &arg)
 {
     class Local : public Interface {
        public:
-        Local(const T &obj, const P &arg) : _obj(obj), _arg(arg) {}
-        virtual void Work() override { _obj.Call(_arg); }
+        Local(const T &obj, P arg) : _obj(obj), _arg(std::move(arg)) {}
+        void Work() override { _obj.Call(_arg); }
 
        private:
         T _obj;
@@ -49,13 +51,13 @@ std::shared_ptr<Interface> MakeAdapter(const T &obj, const P &arg)
 
 class WorkerIndian {
    public:
-    void Call(int i) { std::cout << "indian work on i: " << i << std::endl; }
+    static void Call(int i) { std::cout << "indian work on i: " << i << std::endl; }
 };
 
 class WorkerChina {
    public:
-    void Call(const std::string &s) { std::cout << "chinese work on s: " << s << std::endl; }
-    void Smoke() { std::cout << "do some smoke: " << std::endl; }
+    static void Call(const std::string &s) { std::cout << "chinese work on s: " << s << std::endl; }
+    static void Smoke() { std::cout << "do some smoke: " << std::endl; }
 };
 
 void WorkOnMyWay(std::vector<std::shared_ptr<Interface>> &workers)
@@ -100,7 +102,7 @@ class Base {
 // template <int type>
 class FindDriver {
    public:
-    void process(std::shared_ptr<Base> obj) { obj->Process(); }
+    static void process(const std::shared_ptr<Base>& obj) { obj->Process(); }
 };
 
 class Find1 : public Base {
@@ -162,13 +164,13 @@ class findBuilder {
 TEST(Template, StaticDispatch)
 {
     auto s1 = findBuilder<TYPE1>().makeFinder();
-    FindDriver().process(s1);
+    TStaticDispatchTest::FindDriver::process(s1);
     s1->FPrint();
     int driver1 = s1->GetD();
     int receiver1 = s1->GetR();
 
     auto s2 = findBuilder<TYPE2>().makeFinder();
-    FindDriver().process(s2);
+    TStaticDispatchTest::FindDriver::process(s2);
     s2->FPrint();
     int driver2 = s2->GetD();
     int receiver2 = s2->GetR();
@@ -201,7 +203,7 @@ class Pattern {
 // template <int type>
 class FindPattern {
    public:
-    void process(std::shared_ptr<Pattern> obj) { obj->Process(); }
+    static void process(std::shared_ptr<Pattern> obj) { obj->Process(); }
 };
 
 class FindPattern1 : public Pattern {
@@ -261,13 +263,13 @@ class findBuilder {
 TEST(Template, StaticDispatch)
 {
     auto s1 = findBuilder<FindPattern1>().makeFinder();
-    FindPattern().process(s1);
+    TStaticDispatchTest2::FindPattern::process(s1);
     s1->FPrint();
     int driver1 = s1->GetD();
     int receiver1 = s1->GetR();
 
     auto s2 = findBuilder<FindPattern2>().makeFinder();
-    FindPattern().process(s2);
+    TStaticDispatchTest2::FindPattern::process(s2);
     s2->FPrint();
     int driver2 = s2->GetD();
     int receiver2 = s2->GetR();
