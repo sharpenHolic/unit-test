@@ -28,5 +28,6 @@ add_executable(unit testUnit.cpp testTemplate.cpp testCpp17.cpp
         testSetMerge.cpp
         testString.cpp
         testExplicit.cpp
+        testCase.cpp
 )
 target_link_libraries(unit gtest gtest_main)
