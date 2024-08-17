@@ -160,12 +160,7 @@ TEST(Multimap, test1)
 TEST(MultiMap, test2)
 {
     std::unordered_multimap<int, std::string> myMap = {
-            {1, "Apple"},
-            {2, "Banana"},
-            {1, "Apple2"},
-            {4, "Orange"},
-            {1, "Apple3"}
-    };
+      {1, "Apple"}, {2, "Banana"}, {1, "Apple2"}, {4, "Orange"}, {1, "Apple3"}};
 
     int key = 1;
     std::string valueToDelete = "Apple3";
@@ -174,7 +169,7 @@ TEST(MultiMap, test2)
     for (auto it = range.first; it != range.second;) {
         if (it->second == valueToDelete) {
             it = myMap.erase(it);
-//            break; // 可选，如果只想删除第一个匹配的值
+            //            break; // 可选，如果只想删除第一个匹配的值
         } else {
             ++it;
         }
@@ -191,6 +186,26 @@ TEST(STRINGTOINT, test1)
     std::string ss = "a0091a11";
     int ii = atoi(ss.c_str());
     std::cout << "ii: " << ii << std::endl;
+}
+
+TEST(STRING, test2)
+{
+    // 查找string中的字串
+    std::string ss = "a0091a11";
+    if (ss.find("a") != std::string::npos) {
+        std::cout << "ss: " << ss << std::endl;
+    }
+}
+
+TEST(VectorSize, test1)
+{
+    std::vector<int*> v1{nullptr};
+    std::cout << "v1 size: " << v1.size() << std::endl;
+
+    std::vector<int*> v2;
+    std::cout << "v2 size: " << v2.size() << std::endl;
+
+    int* iPtr{nullptr};
 }
 
 };  // namespace STLTest
