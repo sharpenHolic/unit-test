@@ -4,7 +4,6 @@
 
 #include "gtest/gtest.h"
 
-
 std::string get()
 {
     std::string a{"test"};
@@ -21,4 +20,14 @@ TEST(STRING, find1)
     }
 
     std::cout << get() << std::endl;
+}
+
+TEST(STRING, print1)
+{
+    std::string clk1 = "clk1[0]";
+
+
+    std::string clk = "clk";
+    std::cout << "compare: " << clk1.compare(clk) << std::endl;
+    std::cout << "compare: " << clk.compare(clk1) << std::endl;
 }

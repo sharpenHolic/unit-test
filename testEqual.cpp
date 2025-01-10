@@ -7,6 +7,6 @@
 TEST(Equal, test1)
 {
     if (1 == 1 == 1) {
-
+        std::cout << "equal" << std::endl;
     }
 }

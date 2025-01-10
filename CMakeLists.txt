@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 project(UNIT-TEST)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(GTEST_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/include/googletest/googletest/include)
 message(${CMAKE_SOURCE_DIR}/include/googletest/googletest/include)
 include_directories(${GTEST_INCLUDE_DIRS})
@@ -30,5 +30,11 @@ add_executable(unit testUnit.cpp testTemplate.cpp testCpp17.cpp
         testExplicit.cpp
         testCase.cpp
         testDesignPattern/testFactory.cpp
+        cpp20/init.cpp
+        cpp20/testChrono.cpp
+        testEffectiveCpp/testConst.cpp
+        testEffectiveCpp/testInitial.cpp
+        testWork/testClass.cpp
+        testLamda.cpp
 )
 target_link_libraries(unit gtest gtest_main)

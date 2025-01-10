@@ -73,7 +73,7 @@ TEST(MemoryCostTest, Common)
 
 TEST(MemoryCostTest, STL)
 {
-    std::cout << boost::format("vector<int>: %1% bytes\n") % sizeof(std::vector<int>);
+    std::cout << boost::format("vector<int*>: %1% bytes\n") % sizeof(std::vector<int*>);
     std::cout << boost::format("set<int>: %1% bytes\n") % sizeof(std::set<int>);
     std::cout << boost::format("queue<int>: %1% bytes\n") % sizeof(std::queue<int>);
     std::cout << boost::format("deque<int>: %1% bytes\n") % sizeof(std::deque<int>);
@@ -81,12 +81,36 @@ TEST(MemoryCostTest, STL)
     std::cout << boost::format("unodered_map<int, int>: %1% bytes\n") % sizeof(std::unordered_map<int, int>);
     std::cout << boost::format("multimap<int, int>: %1% bytes\n") % sizeof(std::multimap<int, int>);
     std::cout << boost::format("unodered_map<int, int>: %1% bytes\n") % sizeof(std::unordered_multimap<int, int>);
-    std::cout << boost::format("array<int, 1>: %1% bytes\n") % sizeof(std::array<int, 1>);
-    std::cout << boost::format("array<long, 2>: %1% bytes\n") % sizeof(std::array<long, 2>);
+    std::cout << boost::format("array<int*, 1>: %1% bytes\n") % sizeof(std::array<int*, 1>);
+    std::cout << boost::format("array<int*, 10>: %1% bytes\n") % sizeof(std::array<int*, 10>);
+    std::cout << boost::format("array<long, 1>: %1% bytes\n") % sizeof(std::array<long, 1>);
 
     std::vector<int> myV{1, 2, 3, 4, 5, 6, 7};
     std::cout << boost::format("vector<int> myV: %1% bytes + sizeof(int)(%2% bytes) * element num(%3%) = %4% bytes\n") %
                    sizeof(myV) % sizeof(int) % myV.size() % (sizeof(myV) + sizeof(int) * myV.size());
+}
+
+
+TEST(MemoryCostTest, unordered_map)
+{
+    std::cout << boost::format("unodered_map<int, int>: %1% bytes\n") % sizeof(std::unordered_map<int, int>);
+    std::cout << boost::format("unodered_map<int*, int*>: %1% bytes\n") % sizeof(std::unordered_map<int*, int*>);
+    const int num_elements = 30000000;
+    std::unordered_map<int*, int*> umap;
+
+    // 添加元素到unordered_map
+    srand(static_cast<unsigned int>(time(nullptr)));
+    for (int i = 0; i < num_elements; ++i) {
+        int* key = new int(rand());
+        int* value = new int(rand());
+        umap[key] = value;
+    }
+
+    // 释放unordered_map中的元素
+    for (auto& pair : umap) {
+        delete pair.first;
+        delete pair.second;
+    }
 }
 
 TEST(MemoryCostTest, Class)
@@ -174,6 +198,23 @@ TEST(MultiMap, test2)
             ++it;
         }
     }
+
+    // 打印剩余的键值对
+    for (const auto& pair : myMap) {
+        std::cout << pair.first << ": " << pair.second << std::endl;
+    }
+}
+
+TEST(MultiMap, test3)
+{
+    std::unordered_multimap<int, std::string> myMap = {
+      {1, "Apple"}, {2, "Banana"}, {1, "Apple2"}, {4, "Orange"}, {1, "Apple3"}};
+
+    int key = 1;
+    std::string valueToDelete = "Apple3";
+
+    auto iter = myMap.find(key);
+    myMap.extract(iter);
 
     // 打印剩余的键值对
     for (const auto& pair : myMap) {
